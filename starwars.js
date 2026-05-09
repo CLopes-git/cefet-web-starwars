@@ -4,7 +4,19 @@
 //  - Pegar a lista de filmes (AJAX) e preencher no HTML
 //  - Quando um filme for clicado, exibir sua introdução
 
+import { play } from './music.js';
+
 const API_ENDPOINT = 'https://swapi.info/api'
+
+play(
+  {
+    audioUrl: 'audio/tema-sw.mp3',
+    coverImageUrl: 'imgs/logo.svg',
+    title: 'Intro',
+    artist: 'John Williams'
+  },
+  document.body
+);
 
 async function fetchMovies() {
   try {
