@@ -5,6 +5,7 @@
 //  - Quando um filme for clicado, exibir sua introdução
 
 import { play } from './music.js';
+import { restartAnimation } from './restart-animation.js';
 
 const API_ENDPOINT = 'https://swapi.info/api'
 
@@ -63,12 +64,24 @@ async function fetchMovies() {
 
 function fillMoviesList(movies) {
   const filmesList = document.querySelector('#filmes ul');
+
   filmesList.innerHTML = '';
 
   movies.forEach(movie => {
-    const roman = decimalToRoman(movie.episode_id).padEnd(3, ' ');
     const li = document.createElement('li');
-    li.textContent = `Episode ${roman} - ${movie.title}`;
+    li.textContent = `Episode ${decimalToRoman(movie.episode_id)} - ${movie.title}`;
+
+    li.addEventListener('click', () => {
+      const intro = document.querySelector('pre.introducao');
+
+      intro.textContent = `Episode ${decimalToRoman(movie.episode_id)}
+${movie.title}
+
+${movie.opening_crawl}`;
+
+      restartAnimation(intro);
+    });
+
     filmesList.appendChild(li);
   });
 }
